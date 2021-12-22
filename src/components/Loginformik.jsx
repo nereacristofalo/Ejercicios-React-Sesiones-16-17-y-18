@@ -1,9 +1,9 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const loginSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
   email: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
@@ -11,8 +11,9 @@ const loginSchema = Yup.object().shape({
 });
 
 const Loginformik = () => {
+  const history = useHistory();
+
   const initialCredentials = {
-    name: '',
     email: '',
     password: '',
   };
@@ -21,11 +22,12 @@ const Loginformik = () => {
     await new Promise((r) => setTimeout(r, 500));
     alert(JSON.stringify(values, null, 2));
     localStorage.setItem('credentials', JSON.stringify(values, null, 2));
+    history.push('/dashboard');
   };
 
   return (
     <div>
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
       <Formik
         initialValues={initialCredentials}
         validationSchema={loginSchema}
@@ -40,11 +42,6 @@ const Loginformik = () => {
           handleBlur,
         }) => (
           <Form>
-            <label htmlFor="name">Name:</label>
-            <Field id="name" name="name" type="name" placeholder="Jane" />
-            {errors.name && touched.name && (
-              <ErrorMessage name="name" component="div"></ErrorMessage>
-            )}
             <label htmlFor="email">Email:</label>
             <Field
               id="email"
@@ -59,7 +56,7 @@ const Loginformik = () => {
             <Field
               id="password"
               name="password"
-              placeholder="Doe"
+              placeholder="Password"
               type="password"
             />
             {errors.password && touched.password && (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 import { Contact } from '../models/contact.model';
+import Dashboardpage from './dashboard/DashBoard';
 
 const ContactsPage = () => {
   const [list, setList] = useState([
@@ -65,6 +66,7 @@ const ContactsPage = () => {
           onEvent4={onEvent5}
         />
       )}
+      <Dashboardpage></Dashboardpage>
     </div>
   );
 };
